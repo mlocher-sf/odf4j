@@ -1,0 +1,4 @@
+Authors of odf4j.
+
+Locher, Michael <michael.locher@acm.org>
+   + project lead

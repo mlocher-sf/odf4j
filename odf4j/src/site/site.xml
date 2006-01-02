@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Maven">
+
+	<bannerLeft>
+		<name>odf4j</name>
+		<!-- 
+			<src>
+			http://maven.apache.org/images/apache-maven-project.png
+			</src>
+			<href>http://maven.apache.org/</href>
+		-->
+	</bannerLeft>
+	<!-- 
+		<bannerRight>
+		
+		<src>http://maven.apache.org/images/maven-small.gif</src>
+		</bannerRight>
+	-->
+	<body>
+		<links>
+			<item name="OASIS TC"
+				href="http://www.oasis-open.org/committees/office" />
+			<item name="OpenOffice" href="http://xml.openoffice.org/" />
+			<item name="SF Project Site"
+				href="http://sourceforge.net/projects/odf4j" />
+
+		</links>
+
+
+		<menu name="odf4j">
+			<item name="Introduction" href="index.html" />
+		</menu>
+
+		${reports}
+
+	</body>
+</project>
