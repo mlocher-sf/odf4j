@@ -98,7 +98,7 @@
 		</downloadUrl>
 		<site>
 			<id>website</id>
-			<url>scp://www.mycompany.com/www/docs/project/</url>
+			<url>scp://mlocher@shell.sourceforge.net/home/groups/o/od/odf4j/htdocs</url>
 		</site>
 	</distributionManagement>
 </project>
