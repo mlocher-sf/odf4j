@@ -1,27 +1,40 @@
 // odf4j: OASIS Open Document Library for Java.
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
-package net.sf.odf4j;
+package net.sf.odf4j.pkg;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import javax.imageio.ImageIO;
+
+import org.xml.sax.InputSource;
+
 /**
  * @author Michael Locher (michael.locher@acm.org)
  * @version $Version:$
  */
-public class Container {
+public class Package {
+
+    private static final String MANIFEST_PATH = "META-INF/manifest.xml";
+
+    private static final String THUMBNAIL_PATH = "Thumbnails/thumbnail.png";
 
     private Map entriesByName;
 
     private Map filesByName;
 
-    protected Container() {
+    protected Package() {
         super();
         this.entriesByName = new HashMap();
         this.filesByName = new HashMap();
@@ -31,8 +44,8 @@ public class Container {
      * @param doc
      * @throws IOException
      */
-    public static Container read(InputStream doc) throws IOException {
-        Container result = new Container();
+    public static Package read(InputStream doc) throws IOException {
+        Package result = new Package();
         ZipInputStream archive = new ZipInputStream(doc);
         ZipEntry entry;
         byte[] buffer = new byte[4096];
@@ -83,6 +96,22 @@ public class Container {
         return Collections.unmodifiableMap(this.filesByName);
     }
 
+    public File getFile(String name) throws FileNotFoundException {
+        File result = (File) this.filesByName.get(name);
+        if (result == null) {
+            throw new FileNotFoundException(name);
+        }
+        return result;
+    }
+
+    public File getManifest() throws FileNotFoundException {
+        return this.getFile(MANIFEST_PATH);
+    }
+
+    public BufferedImage getThumbnail() throws IOException {
+        return ImageIO.read(this.getFile(THUMBNAIL_PATH).getInputStream());
+    }
+
     public String toString() {
         return this.entriesByName.keySet().toString();
     }
@@ -129,6 +158,19 @@ public class Container {
 
         public byte[] getData() {
             return this.data;
+        }
+
+        public InputSource getInputSource() {
+            return new InputSource(this.getInputStream());
+        }
+
+        public InputStream getInputStream() {
+            return new ByteArrayInputStream(this.data);
+        }
+
+        public Reader getReader() {
+            // TODO encoding
+            return new InputStreamReader(this.getInputStream());
         }
 
     }

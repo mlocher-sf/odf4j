@@ -6,7 +6,7 @@ package net.sf.odf4j;
  * @author Michael Locher (michael.locher@acm.org)
  * @version $Version:$
  */
-final public class Version {
+public final class Version {
 
     public final static String VERSION = "0.1";
     public final static String VERSION_SCM = "$Id$";
