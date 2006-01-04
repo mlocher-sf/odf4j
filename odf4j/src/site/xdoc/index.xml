@@ -1,0 +1,42 @@
+<document>
+	<properties>
+		<title>odf4j: OASIS Open Document Library for Java</title>
+		<author email="michael.locher@acm.org">Michael Locher</author>
+	</properties>
+
+	<head></head>
+
+	<body>
+		<section name="OASIS Open Document Library for Java">
+
+			<subsection name="Goals">
+				<div id="donate">
+					<a
+						href="http://sourceforge.net/donate/index.php?group_id=156417">
+						<img
+							src="http://images.sourceforge.net/images/project-support.jpg"
+							width="88" height="32" border="0" alt="Support This Project" />
+					</a>
+				</div>
+			
+				<p>Support Library for ODF written in Java 1.4</p>
+				<ul>
+					<li>Classes for working with ODF package files</li>
+					<li>Validation of Open Document XML Files</li>
+					<li>JAXB Bindings</li>
+					<li>...</li>
+				</ul>
+			
+			</subsection>
+
+			<subsection name="Status">
+				<p>
+					<em>Current project status:</em>
+					planning, developers wanted
+				</p>
+			</subsection>
+
+		</section>
+	</body>
+
+</document>

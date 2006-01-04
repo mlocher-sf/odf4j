@@ -2,25 +2,22 @@
 <project name="Maven">
 
 	<bannerLeft>
-		<name>odf4j</name>
-		<!-- 
-			<src>
-			http://maven.apache.org/images/apache-maven-project.png
-			</src>
-			<href>http://maven.apache.org/</href>
-		-->
+		<src>
+			http://sflogo.sourceforge.net/sflogo.php?group_id=156417&amp;type=1
+		</src>
 	</bannerLeft>
-	<!-- 
-		<bannerRight>
-		
-		<src>http://maven.apache.org/images/maven-small.gif</src>
-		</bannerRight>
-	-->
+	<bannerRight>
+		<name>odf4j</name>
+		<href>http://odf4j.sourceforge.net/</href>
+		<src>images/odf4j.png</src>
+	</bannerRight>
+
 	<body>
 		<links>
 			<item name="OASIS TC"
-				href="http://www.oasis-open.org/committees/office" />
-			<item name="OpenOffice" href="http://xml.openoffice.org/" />
+				href="http://www.oasis-open.org/committees/office" target="_blank" />
+			<item name="OpenOffice" href="http://xml.openoffice.org/"
+				target="_blank" />
 			<item name="SF Project Site"
 				href="http://sourceforge.net/projects/odf4j" />
 

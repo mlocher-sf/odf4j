@@ -1,0 +1,35 @@
+#breadcrumbs {
+  border: none;
+  color: white;
+  background-color: #3366CC;
+}
+
+#breadcrumbs a {
+  color: white;
+}
+
+#leftColumn {
+  border: none;
+  color: white;
+  background-color: #3366CC;
+}
+
+#leftColumn a {
+  color: white;
+}
+
+.section h2 {
+  border: none;
+  color: white;
+  background-color: #3366CC;
+}
+
+.section h3 {
+  border: none;
+  color: white;
+  background-color: #3366CC;
+}
+
+#donate {
+  float: right;
+}

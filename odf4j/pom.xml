@@ -18,6 +18,10 @@
 		</url>
 	</issueManagement>
 	<inceptionYear>2006</inceptionYear>
+	<organization>
+		<name>SourceForge</name>
+		<url>http://www.sourceforge.net/projects/odf4j/</url>
+	</organization>
 	<developers>
 		<developer>
 			<id>mlocher</id>
@@ -33,12 +37,12 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>http://cvs.sourceforge.net/viewcvs.py/odf4j</url>
+		<url>http://cvs.sourceforge.net/viewcvs.py/odf4j/odf4j</url>
 		<connection>
-			scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/odf4j
+			scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/odf4j:odf4j
 		</connection>
 		<developerConnection>
-			scm:cvs:ext:username@cvs.sourceforge.net:/cvsroot/odf4j
+			scm:cvs:ext:username@cvs.sourceforge.net:/cvsroot/odf4j:odf4j
 		</developerConnection>
 	</scm>
 	<dependencies>
