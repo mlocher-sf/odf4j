@@ -26,10 +26,10 @@ import org.xml.sax.InputSource;
  */
 public class Package {
 
-    private static final String MANIFEST_PATH = "META-INF/manifest.xml";
-
     private static final String THUMBNAIL_PATH = "Thumbnails/thumbnail.png";
 
+    private Manifest manifest;
+    
     private Map entriesByName;
 
     private Map filesByName;
@@ -55,7 +55,7 @@ public class Package {
                 break;
             }
             if (entry.isDirectory()) {
-                result.addDirectory(new Directory(entry.getName()));
+                result.addDirectory(result.new Directory(entry.getName()));
             } else {
                 int estimatedSize = (int) entry.getSize();
                 if (estimatedSize < 0) {
@@ -70,7 +70,7 @@ public class Package {
                     }
                 }
                 archive.closeEntry();
-                result.addFile(new File(entry.getName(), data.toByteArray()));
+                result.addFile(result.new File(entry.getName(), data.toByteArray()));
             }
         } while (entry != null);
         return result;
@@ -104,8 +104,11 @@ public class Package {
         return result;
     }
 
-    public File getManifest() throws FileNotFoundException {
-        return this.getFile(MANIFEST_PATH);
+    public Manifest getManifest() {
+        if (this.manifest == null) {
+            this.manifest = Manifest.createFrom(this);
+        }
+        return this.manifest;
     }
 
     public BufferedImage getThumbnail() throws IOException {
@@ -120,9 +123,10 @@ public class Package {
 
     public static interface Entry {
         public String getName();
+        public Map getMetadataProperties();
     }
 
-    protected static class AbstractEntry implements Entry {
+    protected class AbstractEntry implements Entry {
         private String name;
 
         protected AbstractEntry(String name) {
@@ -137,17 +141,23 @@ public class Package {
         public String toString() {
             return this.name;
         }
+
+        public Map getMetadataProperties() {
+            return Package.this.getManifest().getProperties(this.getName());
+        }
+        
+        public Object getMetadataProperty(String propertyName) {
+            return this.getMetadataProperties().get(propertyName);
+        }
     }
 
-    public static class Directory extends AbstractEntry {
-
+    public class Directory extends AbstractEntry {
         protected Directory(String name) {
             super(name);
         }
-
     }
 
-    public static class File extends AbstractEntry {
+    public class File extends AbstractEntry {
 
         private byte[] data;
 
@@ -171,6 +181,13 @@ public class Package {
         public Reader getReader() {
             // TODO encoding
             return new InputStreamReader(this.getInputStream());
+        }
+
+        /**
+         * @return
+         */
+        public boolean isEncrypted() {
+            return Boolean.TRUE.equals(this.getMetadataProperty("encrypted"));
         }
 
     }

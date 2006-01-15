@@ -2,6 +2,7 @@
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
 package net.sf.odf4j;
 
+import net.sf.odf4j.pkg.Manifest;
 import net.sf.odf4j.pkg.Package;
 
 /**
@@ -14,7 +15,7 @@ public class SchemaTest extends AbstractDocumentTestCase {
     public void testValidateManifest() throws Exception
     {
         Package pkg = Package.read(this.getSimpleTextDocument());
-        Schema.getInstance().validateManifest(pkg.getManifest().getInputSource());
+        Schema.getInstance().validateManifest(pkg.getFile(Manifest.MANIFEST_PATH).getInputSource());
     }
 
     public void testValidateTextContent() throws Exception

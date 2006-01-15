@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.iso_relax.verifier.Verifier;
 import org.iso_relax.verifier.VerifierConfigurationException;
@@ -28,6 +27,8 @@ public final class Schema {
     private static final String ODF_SCHEMA = "/OpenDocument-schema-v1.0-os.rng";
 
     private static final String MANIFEST_SCHEMA = "/OpenDocument-manifest-schema-v1.0-os.rng";
+
+    public static final String MANIFEST_NAMESPACE = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
 
     private static Schema UNIQUE_INSTANCE;
 
@@ -97,26 +98,9 @@ public final class Schema {
             throws SAXException, ParserConfigurationException, IOException {
         verifier.setErrorHandler(ErrorHandlerImpl.theInstance);
         VerifierFilter filter = verifier.getVerifierFilter();
-        XMLReader reader = this.createReader();
+        XMLReader reader = Util.getParser().getXMLReader();
         filter.setParent(reader);
         filter.parse(input);
     }
-
-    /**
-     * @return
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     */
-    private XMLReader createReader() throws SAXException,
-            ParserConfigurationException {
-        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-        parserFactory.setNamespaceAware(true);
-        parserFactory.setValidating(false);
-        parserFactory
-                .setFeature(
-                        "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                        false);
-        return parserFactory.newSAXParser().getXMLReader();
-    }
-
+   
 }
