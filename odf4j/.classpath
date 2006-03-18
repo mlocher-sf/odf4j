@@ -10,5 +10,6 @@
 	<classpathentry kind="var" path="M2_REPO/msv/xsdlib/20050913/xsdlib-20050913.jar"/>
 	<classpathentry kind="var" path="M2_REPO/msv/msv/20050913/msv-20050913.jar"/>
 	<classpathentry kind="var" path="M2_REPO/msv/isorelax/20050913/isorelax-20050913.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

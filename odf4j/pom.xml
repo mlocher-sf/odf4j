@@ -47,11 +47,11 @@
 	</scm>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+		  <groupId>commons-logging</groupId>
+		  <artifactId>commons-logging</artifactId>
+		  <version>1.0.4</version>
+		  <scope>compile</scope>
+		</dependency>		
 		<dependency>
 			<groupId>msv</groupId>
 			<artifactId>isorelax</artifactId>
@@ -75,6 +75,12 @@
 			<artifactId>xsdlib</artifactId>
 			<version>20050913</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<build>

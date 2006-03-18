@@ -5,11 +5,17 @@ package net.sf.odf4j.pkg;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +24,8 @@ import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.xml.sax.InputSource;
 
 /**
@@ -26,10 +34,12 @@ import org.xml.sax.InputSource;
  */
 public class Package {
 
+    private static final Log LOG = LogFactory.getLog(Package.class);
+
     private static final String THUMBNAIL_PATH = "Thumbnails/thumbnail.png";
 
     private Manifest manifest;
-    
+
     private Map entriesByName;
 
     private Map filesByName;
@@ -40,40 +50,103 @@ public class Package {
         this.filesByName = new HashMap();
     }
 
+    public static Package read(java.io.File doc) throws IOException {
+        LOG.debug("read odf package from file");
+        FileInputStream input = null;
+        FileChannel channel = null;
+        try {
+            input = new FileInputStream(doc);
+            channel = input.getChannel();
+            ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, doc.length());
+            return read(buffer);
+        } finally {
+            if (channel != null) {
+                channel.close();
+            }
+            if (input != null) {
+                input.close();
+            }
+        }
+    }
+
+    private static Package read(final ByteBuffer buf) throws IOException {
+        // Wraps the buffer with an InputStream
+        // credit: http://javaalmanac.com/egs/java.nio/Buffer2Stream.html
+        return read(new InputStream() {
+            public synchronized int read() throws IOException {
+                if (!buf.hasRemaining()) {
+                    return -1;
+                }
+                return buf.get();
+            }
+
+            public synchronized int read(byte[] bytes, int off, int len)
+                    throws IOException {
+                // Read only what's left
+                len = Math.min(len, buf.remaining());
+                buf.get(bytes, off, len);
+                return len;
+            }
+        });
+    }
+
     /**
      * @param doc
      * @throws IOException
      */
     public static Package read(InputStream doc) throws IOException {
+        LOG.debug("read odf package from stream");
         Package result = new Package();
         ZipInputStream archive = new ZipInputStream(doc);
         ZipEntry entry;
-        byte[] buffer = new byte[4096];
         do {
             entry = archive.getNextEntry();
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("processing zip entry: "
+                        + (entry == null ? "null" : entry.toString()));
+            }
             if (entry == null) {
                 break;
             }
             if (entry.isDirectory()) {
                 result.addDirectory(result.new Directory(entry.getName()));
             } else {
-                int estimatedSize = (int) entry.getSize();
-                if (estimatedSize < 0) {
-                    estimatedSize = 4096;
-                }
-                ByteArrayOutputStream data = new ByteArrayOutputStream(
-                        estimatedSize);
-                while (archive.available() > 0) {
-                    int count = archive.read(buffer);
-                    if (count > 0) {
-                        data.write(buffer, 0, count);
-                    }
-                }
+                int announcedSize = (int) entry.getSize();
+                ByteBuffer data = (announcedSize < 0) ? readUnknownSizeFileEntry(archive)
+                        : readFileEntry(archive, announcedSize);
+                result.addFile(result.new File(entry.getName(), data));
                 archive.closeEntry();
-                result.addFile(result.new File(entry.getName(), data.toByteArray()));
             }
         } while (entry != null);
         return result;
+    }
+
+    private static ByteBuffer readFileEntry(InputStream archive,
+            int announcedSize) throws IOException {
+        LOG.trace("read zip entry with size " + announcedSize);
+        ByteBuffer data = ByteBuffer.allocate(announcedSize);
+        ReadableByteChannel src = Channels.newChannel(archive);
+        while (data.hasRemaining()) {
+            if (src.read(data) == -1) {
+                // EOF detected
+                break;
+            }
+        }
+        return data;
+    }
+
+    private static ByteBuffer readUnknownSizeFileEntry(InputStream archive)
+            throws IOException {
+        LOG.trace("read zip entry with unknown size");
+        ByteArrayOutputStream data = new ByteArrayOutputStream(8192);
+        byte[] buffer = new byte[4096];
+        while (archive.available() > 0) {
+            int count = archive.read(buffer);
+            if (count > 0) {
+                data.write(buffer, 0, count);
+            }
+        }
+        return ByteBuffer.wrap(data.toByteArray());
     }
 
     /**
@@ -123,6 +196,7 @@ public class Package {
 
     public static interface Entry {
         public String getName();
+
         public Map getMetadataProperties();
     }
 
@@ -145,7 +219,7 @@ public class Package {
         public Map getMetadataProperties() {
             return Package.this.getManifest().getProperties(this.getName());
         }
-        
+
         public Object getMetadataProperty(String propertyName) {
             return this.getMetadataProperties().get(propertyName);
         }
@@ -159,15 +233,15 @@ public class Package {
 
     public class File extends AbstractEntry {
 
-        private byte[] data;
+        private ByteBuffer data;
 
-        protected File(String name, byte[] data) {
+        protected File(String name, ByteBuffer data) {
             super(name);
             this.data = data;
         }
 
         public byte[] getData() {
-            return this.data;
+            return this.data.array();
         }
 
         public InputSource getInputSource() {
@@ -175,7 +249,7 @@ public class Package {
         }
 
         public InputStream getInputStream() {
-            return new ByteArrayInputStream(this.data);
+            return new ByteArrayInputStream(this.data.array());
         }
 
         public Reader getReader() {
