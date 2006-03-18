@@ -1,7 +1,7 @@
-#Tue Jan 03 14:02:07 CET 2006
+#Sat Mar 18 22:39:44 CET 2006
 eclipse.preferences.version=1
 formatter_settings_version=8
-internal.default.compliance=default
+internal.default.compliance=user
 org.eclipse.jdt.ui.exception.name=e
 org.eclipse.jdt.ui.gettersetter.use.is=true
 org.eclipse.jdt.ui.javadoc=true

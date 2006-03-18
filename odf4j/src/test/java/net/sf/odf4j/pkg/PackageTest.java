@@ -13,30 +13,27 @@ import net.sf.odf4j.AbstractDocumentTestCase;
  * @version $Version:$
  */
 public class PackageTest extends AbstractDocumentTestCase {
-    
-    public void testSimple() throws Exception
-    {
+
+    public void testSimple() throws Exception {
         loadAndAssertCommon(this.getSimpleTextDocument(), 7);
     }
-    
-    public void testSimpleWithImage() throws Exception
-    {
+
+    public void testSimpleWithImage() throws Exception {
         loadAndAssertCommon(this.getSimpleTextDocumentWithImage(), 8);
     }
-    
-    public void testSigned() throws Exception
-    {
+
+    public void testSigned() throws Exception {
         Package pkg = loadAndAssertCommon(this.getSignedTextDocument(), 8);
         Map files = pkg.getFiles();
         assertTrue(files.containsKey("META-INF/documentsignatures.xml"));
     }
-    
-    public void testEncrypted() throws Exception
-    {
+
+    public void testEncrypted() throws Exception {
         loadAndAssertCommon(this.getEncryptedTextDocument(), 7);
     }
 
-    private Package loadAndAssertCommon(InputStream document, int expectedNumFiles) throws IOException {
+    private Package loadAndAssertCommon(InputStream document,
+            int expectedNumFiles) throws IOException {
         Package pkg = Package.read(this.createTempFile(document));
         Map files = pkg.getFiles();
         assertEquals(expectedNumFiles, files.size());

@@ -23,10 +23,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.imageio.ImageIO;
+import javax.xml.parsers.ParserConfigurationException;
+
+import net.sf.odf4j.Schema;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.iso_relax.verifier.VerifierConfigurationException;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * @author Michael Locher (michael.locher@acm.org)
@@ -44,10 +49,20 @@ public class Package {
 
     private Map filesByName;
 
+    private String password;
+
     protected Package() {
         super();
         this.entriesByName = new HashMap();
         this.filesByName = new HashMap();
+    }
+
+    private String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public static Package read(java.io.File doc) throws IOException {
@@ -90,10 +105,6 @@ public class Package {
         });
     }
 
-    /**
-     * @param doc
-     * @throws IOException
-     */
     public static Package read(InputStream doc) throws IOException {
         LOG.debug("read odf package from stream");
         Package result = new Package();
@@ -114,7 +125,7 @@ public class Package {
                 int announcedSize = (int) entry.getSize();
                 ByteBuffer data = (announcedSize < 0) ? readUnknownSizeFileEntry(archive)
                         : readFileEntry(archive, announcedSize);
-                result.addFile(result.new File(entry.getName(), data));
+                result.addFile(result.createFile(entry, data));
                 archive.closeEntry();
             }
         } while (entry != null);
@@ -149,20 +160,22 @@ public class Package {
         return ByteBuffer.wrap(data.toByteArray());
     }
 
-    /**
-     * @param entry
-     * @param bs
-     */
+    private void addDirectory(Directory dirEntry) {
+        this.entriesByName.put(dirEntry.getName(), dirEntry);
+    }
+
     private void addFile(File fileEntry) {
         this.entriesByName.put(fileEntry.getName(), fileEntry);
         this.filesByName.put(fileEntry.getName(), fileEntry);
     }
 
-    /**
-     * @param dirEntry
-     */
-    private void addDirectory(Directory dirEntry) {
-        this.entriesByName.put(dirEntry.getName(), dirEntry);
+    private File createFile(ZipEntry entry, ByteBuffer data) {
+        String name = entry.getName();
+        if (Manifest.MANIFEST_PATH.equals(name)) {
+            return new ManifestFile(name, data);
+        } else {
+            return new File(name, data);
+        }
     }
 
     public Map getFiles() {
@@ -177,6 +190,10 @@ public class Package {
         return result;
     }
 
+    public File getContent() throws FileNotFoundException {
+        return this.getFile("content.xml");
+    }
+
     public Manifest getManifest() {
         if (this.manifest == null) {
             this.manifest = Manifest.createFrom(this);
@@ -186,6 +203,14 @@ public class Package {
 
     public BufferedImage getThumbnail() throws IOException {
         return ImageIO.read(this.getFile(THUMBNAIL_PATH).getInputStream());
+    }
+
+    public void validate() throws SAXException, IOException,
+            VerifierConfigurationException, ParserConfigurationException {
+        Schema.getInstance().validateDocument(
+                this.getContent().getInputSource());
+        Schema.getInstance().validateManifest(
+                this.getFile(Manifest.MANIFEST_PATH).getInputSource());
     }
 
     public String toString() {
@@ -241,7 +266,7 @@ public class Package {
         }
 
         public byte[] getData() {
-            return this.data.array();
+            return this.isEncrypted() ? this.decript() : this.data.array();
         }
 
         public InputSource getInputSource() {
@@ -249,7 +274,7 @@ public class Package {
         }
 
         public InputStream getInputStream() {
-            return new ByteArrayInputStream(this.data.array());
+            return new ByteArrayInputStream(this.getData());
         }
 
         public Reader getReader() {
@@ -257,13 +282,29 @@ public class Package {
             return new InputStreamReader(this.getInputStream());
         }
 
-        /**
-         * @return
-         */
         public boolean isEncrypted() {
             return Boolean.TRUE.equals(this.getMetadataProperty("encrypted"));
         }
 
+        private byte[] decript() {
+            String pwd = Package.this.getPassword();
+            if (pwd == null) {
+                throw new IllegalStateException("no password set");
+            }
+            return this.data.array();
+        }
+    }
+
+    public class ManifestFile extends File {
+
+        protected ManifestFile(String name, ByteBuffer data) {
+            super(name, data);
+            //assert Manifest.MANIFEST_PATH.equals(this.getName());
+        }
+
+        public boolean isEncrypted() {
+            return false;
+        }
     }
 
 }
