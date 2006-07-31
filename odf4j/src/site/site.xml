@@ -28,6 +28,10 @@
 			<item name="Introduction" href="index.html" />
 		</menu>
 
+		 <menu name="Maven">
+	                 <item name="Maven Repo" href="http://odf4j.sourceforge.net/maven2repo" />
+	         </menu>
+
 		${reports}
 
 	</body>
