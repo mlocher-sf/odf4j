@@ -1,6 +1,6 @@
 // odf4j: OASIS Open Document Library for Java.
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
-package net.sf.odf4j;
+package net.sf.odf4j.test;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

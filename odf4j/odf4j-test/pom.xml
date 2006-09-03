@@ -16,6 +16,12 @@
      <url>scp://shell.sourceforge.net/home/groups/o/od/odf4j/htdocs/modules/${project.artifactId}</url>
    </site>
   </distributionManagement>
-  <dependencies>
+  <dependencies>    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>compile</scope>
+    </dependency>    
   </dependencies>
 </project>

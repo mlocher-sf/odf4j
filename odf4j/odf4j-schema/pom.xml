@@ -29,7 +29,7 @@
       <artifactId>odf4j-test</artifactId>
       <version>0.1-SNAPSHOT</version>
       <scope>test</scope>
-    </dependency>     
+    </dependency>
     <dependency>
       <groupId>msv</groupId>
       <artifactId>isorelax</artifactId>

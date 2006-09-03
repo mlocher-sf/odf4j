@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import net.sf.odf4j.AbstractDocumentTestCase;
+import net.sf.odf4j.test.AbstractDocumentTestCase;
 
 /**
  * @author Michael Locher (michael.locher@acm.org)

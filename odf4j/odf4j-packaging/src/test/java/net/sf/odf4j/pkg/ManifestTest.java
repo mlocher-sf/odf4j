@@ -2,7 +2,7 @@
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
 package net.sf.odf4j.pkg;
 
-import net.sf.odf4j.AbstractDocumentTestCase;
+import net.sf.odf4j.test.AbstractDocumentTestCase;
 
 /**
  * @author Michael Locher (michael.locher@acm.org)

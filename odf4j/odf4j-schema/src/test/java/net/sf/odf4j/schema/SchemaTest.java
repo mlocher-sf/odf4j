@@ -1,12 +1,13 @@
 // odf4j: OASIS Open Document Library for Java.
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
-package net.sf.odf4j;
+package net.sf.odf4j.schema;
 
 import java.io.InputStream;
 
 import net.sf.odf4j.pkg.Manifest;
 import net.sf.odf4j.pkg.Package;
 import net.sf.odf4j.schema.Schema;
+import net.sf.odf4j.test.AbstractDocumentTestCase;
 
 /**
  * @author Michael Locher (michael.locher@acm.org)
