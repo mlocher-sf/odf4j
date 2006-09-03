@@ -1,6 +1,6 @@
 <projectDescription>
   <name>odf4j</name>
-  <comment/>
+  <comment>odf4j: OASIS Open Document Library for Java.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

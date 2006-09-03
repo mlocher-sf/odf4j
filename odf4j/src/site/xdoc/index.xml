@@ -28,11 +28,26 @@
 				</ul>
 			
 			</subsection>
+			
+			<subsection name="Developers: Getting started">
+				<p>
+					<ol>
+						<li>Install <a href="http://maven.apache.org/">Maven 2</a></li>
+						<li>Checkout the latest sources from Subversion:
+							<cite>svn checkout https://svn.sourceforge.net/svnroot/odf4j/trunk/odf4j/ odf4j</cite></li>
+						<li>Create Eclipse project files: <cite>mvn eclipse:eclipse</cite></li>
+					</ol>
+				</p>
+			</subsection>
 
 			<subsection name="Status">
 				<p>
 					<em>Current project status:</em>
 					planning, developers wanted
+					<ul>
+						<li>Submit your <a href="http://sourceforge.net/tracker/?group_id=156417&amp;atid=799705">feature requests</a></li>
+						<li><a href="mailto:mlocher@users.sourceforge.net">Join us !</a></li>
+					</ul>
 				</p>
 			</subsection>
 
