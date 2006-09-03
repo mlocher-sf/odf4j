@@ -27,6 +27,8 @@
 		<menu name="odf4j">
 			<item name="Introduction" href="index.html" />
 		</menu>
+		
+		${modules}
 
 		 <menu name="Maven">
 	                 <item name="Maven Repo" href="http://odf4j.sourceforge.net/maven2repo" />
