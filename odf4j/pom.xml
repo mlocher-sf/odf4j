@@ -111,5 +111,6 @@
   <modules>
     <module>odf4j-util</module>
     <module>odf4j-packaging</module>
+    <module>odf4j-schema</module>
   </modules>
 </project>
