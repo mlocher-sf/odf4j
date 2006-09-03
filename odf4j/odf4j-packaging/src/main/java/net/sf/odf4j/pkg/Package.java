@@ -25,7 +25,7 @@ import java.util.zip.ZipInputStream;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.odf4j.Schema;
+import net.sf.odf4j.schema.Schema;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

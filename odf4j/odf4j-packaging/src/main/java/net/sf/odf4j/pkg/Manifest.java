@@ -9,8 +9,8 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.sf.odf4j.Schema;
-import net.sf.odf4j.Util;
+import net.sf.odf4j.schema.Schema;
+import net.sf.odf4j.util.XMLUtil;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -67,7 +67,7 @@ public class Manifest {
 
     private static Manifest parse(InputSource source) throws SAXException,
             ParserConfigurationException, IOException {
-        XMLReader reader = Util.getParser().getXMLReader();
+        XMLReader reader = XMLUtil.getParser().getXMLReader();
         ManifestHandler handler = new ManifestHandler();
         reader.setContentHandler(handler);
         reader.parse(source);

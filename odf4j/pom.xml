@@ -106,11 +106,12 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>
+    </dependency>    
   </dependencies>
   <modules>
     <module>odf4j-util</module>
     <module>odf4j-packaging</module>
     <module>odf4j-schema</module>
+    <module>odf4j-test</module>
   </modules>
 </project>

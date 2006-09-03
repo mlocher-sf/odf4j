@@ -6,8 +6,8 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf</groupId>
-  <artifactId>odf4j-util</artifactId>
-  <name>odf4j Util</name>
+  <artifactId>odf4j-test</artifactId>
+  <name>odf4j Test</name>
   <version>0.1-SNAPSHOT</version>
   <url>http://odf4j.sourceforge.net/modules/${project.artifactId}</url>
   <distributionManagement>

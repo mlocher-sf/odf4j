@@ -1,4 +1,5 @@
-<?xml version="1.0"?><project>
+<?xml version="1.0"?>
+<project>
   <parent>
     <groupId>net.sf</groupId>
     <artifactId>odf4j</artifactId>
@@ -17,6 +18,18 @@
    </site>
   </distributionManagement>
   <dependencies>
+	<dependency>
+      <groupId>net.sf</groupId>
+      <artifactId>odf4j-util</artifactId>
+      <version>0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency> 
+    <dependency>
+      <groupId>net.sf</groupId>
+      <artifactId>odf4j-test</artifactId>
+      <version>0.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>     
     <dependency>
       <groupId>msv</groupId>
       <artifactId>isorelax</artifactId>
@@ -40,6 +53,6 @@
       <artifactId>xsdlib</artifactId>
       <version>20050913</version>
       <scope>runtime</scope>
-    </dependency>
+    </dependency>    
   </dependencies>
 </project>

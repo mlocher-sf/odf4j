@@ -1,11 +1,13 @@
 // odf4j: OASIS Open Document Library for Java.
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
-package net.sf.odf4j;
+package net.sf.odf4j.schema;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import net.sf.odf4j.util.XMLUtil;
 
 import org.iso_relax.verifier.Verifier;
 import org.iso_relax.verifier.VerifierConfigurationException;
@@ -98,7 +100,7 @@ public final class Schema {
             throws SAXException, ParserConfigurationException, IOException {
         verifier.setErrorHandler(ErrorHandlerImpl.theInstance);
         VerifierFilter filter = verifier.getVerifierFilter();
-        XMLReader reader = Util.getParser().getXMLReader();
+        XMLReader reader = XMLUtil.getParser().getXMLReader();
         filter.setParent(reader);
         filter.parse(input);
     }

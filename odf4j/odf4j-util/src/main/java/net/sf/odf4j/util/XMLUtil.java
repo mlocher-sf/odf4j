@@ -1,6 +1,6 @@
 // odf4j: OASIS Open Document Library for Java.
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
-package net.sf.odf4j;
+package net.sf.odf4j.util;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -12,9 +12,9 @@ import org.xml.sax.SAXException;
  * @author Michael Locher (michael.locher@acm.org)
  * @version $Version:$
  */
-public class Util {
+public class XMLUtil {
 
-    private Util() {
+    private XMLUtil() {
         super();
     }
 

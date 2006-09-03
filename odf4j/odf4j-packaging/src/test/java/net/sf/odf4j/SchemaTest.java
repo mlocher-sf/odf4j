@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import net.sf.odf4j.pkg.Manifest;
 import net.sf.odf4j.pkg.Package;
+import net.sf.odf4j.schema.Schema;
 
 /**
  * @author Michael Locher (michael.locher@acm.org)
