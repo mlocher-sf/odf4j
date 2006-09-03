@@ -2,17 +2,15 @@
 // Copyright (C) 2006 Michael Locher <michael.locher@acm.org>
 package net.sf.odf4j;
 
+
 /**
  * @author Michael Locher (michael.locher@acm.org)
  * @version $Version:$
  */
-public final class Version {
-
-    public final static String VERSION = "0.1";
-    public final static String VERSION_SCM = "$Id$";
+public class VersionTest extends ODF4JTestCase {
     
-    private Version() {
-        super();
+    public void testNotYetReleased() {
+        assertTrue(Double.parseDouble(Version.VERSION) < 1.0);
     }
 
 }
