@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.sf</groupId>
   <artifactId>odf4j</artifactId>
@@ -8,10 +10,6 @@
   <name>odf4j</name>
   <description>odf4j: OASIS Open Document Library for Java.</description>
   <url>http://odf4j.sourceforge.net/</url>
-  <issueManagement>
-    <system>Sourceforge Bugtracker</system>
-    <url><![CDATA[http://sourceforge.net/tracker/?group_id=156417&atid=799702]]></url>
-  </issueManagement>
   <inceptionYear>2006</inceptionYear>
   <organization>
     <name>SourceForge</name>
@@ -27,8 +25,24 @@
       <id>dstacey</id>
       <name>David Stacey</name>
       <email>dstacey@users.sourceforge.net</email>
-    </developer>    
+    </developer>
+    <developer>
+      <id>smbell</id>
+      <name>Stephen Bell</name>
+      <email>smbell@users.sourceforge.net</email>
+    </developer>
   </developers>
+  <mailingLists>
+    <mailingList>
+      <name>odf4j-dev</name>
+      <post>odf4j-dev@googlegroups.com</post>
+      <archive>http://groups.google.com/group/odf4j-dev/</archive>
+    </mailingList>
+  </mailingLists>
+  <issueManagement>
+    <system>Sourceforge Bugtracker</system>
+    <url><![CDATA[http://sourceforge.net/tracker/?group_id=156417&atid=799702]]></url>
+  </issueManagement>
   <licenses>
     <license>
       <name>LGPL</name>
@@ -43,14 +57,14 @@
   </scm>
   <build>
     <plugins>
-    	<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <source>1.4</source>
-              <target>1.4</target>
-            </configuration>
-		</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -79,7 +93,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jxr-maven-plugin</artifactId>
-      </plugin>    
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -114,7 +128,7 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
-    </dependency>    
+    </dependency>
   </dependencies>
   <modules>
     <module>odf4j-util</module>
